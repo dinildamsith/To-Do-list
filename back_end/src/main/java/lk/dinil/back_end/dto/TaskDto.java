@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class TaskDto {
     private Long id;
+    private Long userId;
     private String title;
     private String description;
     private String status;

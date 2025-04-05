@@ -17,8 +17,10 @@ import java.time.LocalDateTime;
 public class TaskEntity {
     @Id
     private Long id;
+    private Long userId;
     private String title;
     private String description;
     private String status;
     private LocalDateTime createdAt;
+
 }
