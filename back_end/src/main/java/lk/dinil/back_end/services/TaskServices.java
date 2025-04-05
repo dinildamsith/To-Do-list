@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface TaskServices {
     ResponseDto createTask(TaskDto taskDto);
-    ResponseDto updateTask(TaskDto taskDto);
+    ResponseDto updateTask(Long updateTaskId, TaskDto taskDto);
     ResponseDto deleteTask(String taskId);
     ResponseDto getTaskById(String taskId);
     List<ResponseDto> getAllTasks();

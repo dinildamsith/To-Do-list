@@ -19,4 +19,10 @@ public class TaskController {
     public ResponseDto addTask(@RequestBody TaskDto taskDto) {
         return taskServices.createTask(taskDto);
     }
+
+    // update task
+    @PutMapping("/update/{taskId}")
+    public ResponseDto updateTask(@PathVariable Long taskId, @RequestBody TaskDto taskDto) {
+        return taskServices.updateTask(taskId, taskDto);
+    }
 }

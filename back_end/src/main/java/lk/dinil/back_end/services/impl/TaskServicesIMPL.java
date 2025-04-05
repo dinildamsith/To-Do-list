@@ -47,8 +47,32 @@ public class TaskServicesIMPL implements TaskServices {
     }
 
     @Override
-    public ResponseDto updateTask(TaskDto taskDto) {
-        return null;
+    public ResponseDto updateTask(Long updateTaskId, TaskDto taskDto) {
+
+        // Check if the task exists
+        TaskEntity taskEntity = taskRepo.findById(updateTaskId).orElseThrow(() -> new RuntimeException("Task not found"));
+
+        if (taskEntity.getTitle() != null && taskEntity.getDescription() != null && taskEntity.getStatus() != null) {
+            // Update the task entity with new values
+            taskEntity.setTitle(taskDto.getTitle());
+            taskEntity.setDescription(taskDto.getDescription());
+            taskEntity.setStatus(taskDto.getStatus());
+
+            // Save the updated task
+            TaskEntity updatedTask = taskRepo.save(taskEntity);
+
+            ResponseDto responseDto = new ResponseDto();
+            responseDto.setResponseCode("200");
+            responseDto.setResponseMessage("Task Update Successfully");
+            responseDto.setData(updatedTask);
+            return responseDto;
+        } else {
+            ResponseDto responseDto = new ResponseDto();
+            responseDto.setResponseCode("400");
+            responseDto.setResponseMessage("Task Update Failed");
+            return responseDto;
+        }
+
     }
 
     @Override
