@@ -27,16 +27,20 @@ public class TaskController {
         return taskServices.updateTask(taskId, taskDto);
     }
 
+    // get task by id
     @GetMapping("/get/{taskId}")
     public ResponseEntity<?> getTaskById(@PathVariable Long taskId) {
         return taskServices.getTaskById(taskId);
     }
 
+    // delete task
     @DeleteMapping("/delete/{taskId}")
     public ResponseEntity<?> deleteTask(@PathVariable Long taskId) {
         return taskServices.deleteTask(taskId);
     }
 
+
+    // get all tasks by user id
     @GetMapping("/getAll/{userId}")
     public ResponseEntity<?> getAllTasksUserBy(@PathVariable Long userId) {
         return taskServices.getAllTasksUserBy(userId);
