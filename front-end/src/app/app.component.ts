@@ -1,12 +1,15 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import {SignInComponent} from './pages/auth/signin/signIn.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  standalone: true,
+  imports: [RouterOutlet, SignInComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  // styleUrl: ''
 })
 export class AppComponent {
-  title = 'front-end';
+
+
 }
