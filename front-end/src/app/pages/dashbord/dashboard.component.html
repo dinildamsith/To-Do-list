@@ -1,0 +1,73 @@
+<app-navbar></app-navbar>
+<!-- todo-dashboard.component.html -->
+<div class="min-h-screen bg-gray-100 p-6">
+  <div class="max-w-5xl mx-auto">
+    <h1 class="text-3xl font-bold text-indigo-700 mb-6">To-Do Dashboard</h1>
+
+    <!-- Task Count Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+      <div class="bg-white p-4 rounded-lg shadow">
+        <p class="text-gray-500">All Tasks</p>
+        <h2 class="text-xl font-bold">{{ allCount }}</h2>
+      </div>
+      <div class="bg-yellow-100 p-4 rounded-lg shadow">
+        <p class="text-gray-600">Pending</p>
+        <h2 class="text-xl font-bold">{{ pendingCount }}</h2>
+      </div>
+      <div class="bg-green-100 p-4 rounded-lg shadow">
+        <p class="text-gray-600">Completed</p>
+        <h2 class="text-xl font-bold">{{ completedCount }}</h2>
+      </div>
+    </div>
+
+    <!-- Controls -->
+    <div class="flex justify-between items-center mb-4">
+      <input [(ngModel)]="searchTerm" type="text" placeholder="Search tasks..."
+             class="border border-gray-300 px-4 py-2 rounded-lg w-1/2" />
+      <button (click)="openNewTask()"
+              class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700">+ New Task</button>
+    </div>
+
+    <!-- Task List -->
+    <div *ngFor="let task of filteredTasks()" class="p-4 flex justify-between items-center">
+      <div>
+        <h3 class="font-semibold text-lg">{{ task.title }}</h3>
+        <p class="text-gray-500">{{ task.description }}</p>
+        <span class="text-sm" [ngClass]="{
+      'text-yellow-600': task.status === 'pending',
+      'text-green-600': task.status === 'completed',
+      'text-blue-600': task.status === 'in-progress'
+    }">{{ task.status }}</span>
+      </div>
+      <div class="space-x-2">
+        <button (click)="editTask(task)" class="text-blue-500 font-medium">Edit</button>
+        <button (click)="deleteTask(task.id)" class="text-red-500 font-medium">Delete</button>
+      </div>
+    </div>
+
+
+    <!-- Add/Edit Task Modal -->
+    <div *ngIf="showForm" class="fixed inset-0 bg-black bg-opacity-40 flex justify-center items-center">
+      <div class="bg-white p-6 rounded-lg w-full max-w-md">
+        <h2 class="text-xl font-bold mb-4">{{ editingTask ? 'Edit Task' : 'New Task' }}</h2>
+        <form (ngSubmit)="saveTask()" class="space-y-3">
+          <input [(ngModel)]="taskForm.title" name="title" placeholder="Task Title"
+                 class="border border-gray-300 w-full px-4 py-2 rounded" required />
+          <textarea [(ngModel)]="taskForm.description" name="description" placeholder="Description"
+                    class="border border-gray-300 w-full px-4 py-2 rounded" required></textarea>
+          <select [(ngModel)]="taskForm.status" name="status"
+                  class="border border-gray-300 w-full px-4 py-2 rounded">
+            <option value="pending">Pending</option>
+            <option value="in-progress">In Progress</option>
+            <option value="completed">Completed</option>
+          </select>
+
+          <div class="flex justify-end gap-2 pt-4">
+            <button type="button" (click)="closeForm()" class="px-4 py-2 border rounded">Cancel</button>
+            <button type="submit" class="bg-indigo-600 text-white px-4 py-2 rounded">Save</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
