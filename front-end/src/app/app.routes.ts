@@ -2,7 +2,6 @@ import { Routes } from '@angular/router';
 import {SignupComponent} from './pages/auth/signup/signup.component';
 import {SignInComponent} from './pages/auth/signin/signIn.component';
 import {DashboardComponent} from './pages/dashbord/dashboard.component';
-import {NavbarComponent} from './component/navbar/navbar.component';
 import {TaskAddComponent} from './pages/addTaskPage/addTask.component';
 
 export const routes: Routes = [
