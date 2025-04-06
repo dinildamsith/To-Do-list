@@ -8,6 +8,7 @@ import {CommonModule, NgClass, NgForOf, NgIf} from '@angular/common';
 import {NavbarComponent} from '../../component/navbar/navbar.component';
 
 
+
 @Component({
   selector: 'app-dashboard',
   standalone: true,
@@ -98,4 +99,5 @@ export class DashboardComponent implements OnInit {
     this.completedCount = this.tasks.filter(task => task.status === 'completed').length;
   }
 
+  protected readonly navigator = navigator;
 }

@@ -6,6 +6,24 @@
         <span class="text-2xl font-bold text-indigo-700">TaskFlow</span>
       </div>
 
+      <!-- Nav Items -->
+      <div class="flex space-x-6">
+        <!-- Dashboard Link with Active State -->
+        <a routerLink="/dash-bord"
+           routerLinkActive="text-indigo-700 font-medium"
+           class="text-sm text-gray-700 hover:text-indigo-700 transition"
+           title="View all tasks">
+          Dashboard
+        </a>
+        <!-- Add Task Link with Active State -->
+        <a routerLink="/add-task"
+           routerLinkActive="text-indigo-700 font-medium"
+           class="text-sm text-gray-700 hover:text-indigo-700 transition"
+           title="Add a new task">
+          Add Task
+        </a>
+      </div>
+
       <!-- Auth Buttons -->
       <div class="flex space-x-4">
         <!-- Logout Button with Icon -->
