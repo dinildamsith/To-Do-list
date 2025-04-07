@@ -64,6 +64,24 @@ export class DashboardComponent implements OnInit {
       })
   }
 
+  // update task
+  updateTask() {
+    console.log(this.taskForm);
+
+    const isAuth = true;
+
+    this.api.put(API_ENDPOINTS.TASK.UPDATE(this.taskForm.id), this.taskForm, isAuth).subscribe({
+      next: (response:any) => {
+        this.showForm = false; // Close the form after saving
+        console.log(response);
+        this.loadDashboardData(); // Reload tasks after update
+      },
+      error: (error) => {
+        console.error(error);
+      }
+    })
+
+  }
 
   // Filter tasks based on search term
   filteredTasks() {

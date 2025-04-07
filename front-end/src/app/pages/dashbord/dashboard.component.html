@@ -56,14 +56,14 @@
                     class="border border-gray-300 w-full px-4 py-2 rounded" required></textarea>
           <select [(ngModel)]="taskForm.status" name="status"
                   class="border border-gray-300 w-full px-4 py-2 rounded">
-            <option value="pending">Pending</option>
-            <option value="in-progress">In Progress</option>
-            <option value="completed">Completed</option>
+                  <option value="TO_DO">TO DO</option>
+                  <option value="IN_PROGRESS">IN PROGRESS</option>
+                  <option value="DONE">DONE</option>
           </select>
 
           <div class="flex justify-end gap-2 pt-4">
             <button type="button" (click)="closeForm()" class="px-4 py-2 border rounded">Cancel</button>
-            <button type="submit" class="bg-indigo-600 text-white px-4 py-2 rounded">Save</button>
+            <button type="button" (click)="updateTask()" class="bg-indigo-600 text-white px-4 py-2 rounded">Update</button>
           </div>
         </form>
       </div>
