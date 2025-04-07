@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 import { ApiService } from '../../service/api.service'; 
 import { API_ENDPOINTS } from '../../service/api-endpoints';
 import { AuthService } from '../../service/auth.service';
-
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-task-add',
   standalone: true,
@@ -18,8 +18,8 @@ export class TaskAddComponent {
   constructor(private fb: FormBuilder, private api: ApiService, private authService: AuthService ) {
     this.taskForm = this.fb.group({
       title: ['', [Validators.required, Validators.maxLength(100)]],
-      description: ['', [Validators.maxLength(500)]],
-      status: ['TO_DO'], // default value
+      description: ['', [Validators.required,Validators.maxLength(500)]],
+      status: ['TO_DO',Validators.required], // default value
     });
   }
 
@@ -41,6 +41,10 @@ export class TaskAddComponent {
      const isAuth = true;
       this.api.post(API_ENDPOINTS.TASK.CREATE, taskData, isAuth).subscribe({
         next: (response: any) => {
+               Swal.fire({
+                    icon: 'success',
+                    title: 'New Task Add Successfully'
+                  });
           console.log('Task added successfully:', response);
           this.taskForm.reset(); // Reset the form after successful submission
         },

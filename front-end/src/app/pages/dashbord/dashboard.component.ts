@@ -9,7 +9,7 @@ import {NavbarComponent} from '../../component/navbar/navbar.component';
 import { ApiService } from '../../service/api.service'; 
 import { API_ENDPOINTS } from '../../service/api-endpoints';
 import { AuthService } from '../../service/auth.service';
-
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -73,6 +73,10 @@ export class DashboardComponent implements OnInit {
       next: (response:any) => {
         this.showForm = false; // Close the form after saving
         console.log(response);
+        Swal.fire({
+          icon: 'success',
+          title: 'Task Updated Successfully'
+        });
         this.loadDashboardData(); // Reload tasks after update
       },
       error: (error) => {
@@ -91,6 +95,10 @@ export class DashboardComponent implements OnInit {
     this.api.delete(API_ENDPOINTS.TASK.DELETE(id),isAuth).subscribe({
       next: (response:any) => {
         console.log(response);
+        Swal.fire({
+          icon: 'success',
+          title: 'Task Delete Successfully'
+        });
         this.loadDashboardData(); // Reload tasks after update
       },
       error: (error) => {

@@ -34,6 +34,7 @@
           placeholder="Enter task description"
         ></textarea>
         <div *ngIf="taskForm.get('description')?.touched && taskForm.get('description')?.invalid" class="text-sm text-red-500 mt-1">
+          <div *ngIf="taskForm.get('description')?.hasError('required')">Description is required.</div>
           <div *ngIf="taskForm.get('description')?.hasError('maxlength')">Max length is 500 characters.</div>
         </div>
       </div>
@@ -50,6 +51,9 @@
           <option value="IN_PROGRESS">IN PROGRESS</option>
           <option value="DONE">DONE</option>
         </select>
+        <div *ngIf="taskForm.get('status')?.touched && taskForm.get('status')?.invalid" class="text-sm text-red-500 mt-1">
+          <div *ngIf="taskForm.get('status')?.hasError('required')">Status is required.</div>
+        </div>
       </div>
 
       <!-- Submit Button -->
