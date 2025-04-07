@@ -5,10 +5,11 @@ import { TaskService } from '../../service/task.service';
 import { Task } from '../../service/mock-tasks';
 import {FormsModule} from '@angular/forms';
 import {CommonModule, NgClass, NgForOf, NgIf} from '@angular/common';
-import {NavbarComponent} from '../../component/navbar/navbar.component';
+import {NavbarComponent} from '../../component/navbar/navbar/navbar.component';
 import { ApiService } from '../../service/api.service'; 
 import { API_ENDPOINTS } from '../../service/api-endpoints';
 import { AuthService } from '../../service/auth.service';
+import { LoadingSpinnerComponent } from '../../component/navbar/loading-spinner/loading-spinner.component';
 import Swal from 'sweetalert2';
 
 
@@ -22,12 +23,14 @@ import Swal from 'sweetalert2';
     NgForOf,
     NgIf,
     NavbarComponent,
+    LoadingSpinnerComponent
   ]
 })
 
 
 export class DashboardComponent implements OnInit {
 
+  isLoading = false;
   tasks: Task[] = [];
   allCount: number = 0;
   toDoCount: number = 0;
@@ -48,6 +51,7 @@ export class DashboardComponent implements OnInit {
   loadDashboardData() {
       const decodeToken:any = this.authService.getDecodedToken()
       const isAuth = true;
+      this.isLoading = true; // Show loading spinner
       this.api.get(API_ENDPOINTS.TASK.GET_ALL(decodeToken.userid), isAuth).subscribe({
         next: (response:any) => {
           this.tasks = response.data;
@@ -55,10 +59,14 @@ export class DashboardComponent implements OnInit {
           this.calculateTaskCounts();
         },
         error: (error) => {
+          this.isLoading = false;
           console.error(error.error.responseCode);
           if (error.error.responseCode === '404') {
             this.tasks = []; // Clear tasks if error occurs
           }
+        },
+        complete: () => {
+          this.isLoading = false; // Hide loading spinner
         }
       })
   }
@@ -69,6 +77,7 @@ export class DashboardComponent implements OnInit {
 
     const isAuth = true;
 
+    this.isLoading = true; // Show loading spinner
     this.api.put(API_ENDPOINTS.TASK.UPDATE(this.taskForm.id), this.taskForm, isAuth).subscribe({
       next: (response:any) => {
         this.showForm = false; // Close the form after saving
@@ -80,7 +89,11 @@ export class DashboardComponent implements OnInit {
         this.loadDashboardData(); // Reload tasks after update
       },
       error: (error) => {
+        this.isLoading = false;
         console.error(error);
+      },
+      complete: () => {
+        this.isLoading = false; // Hide loading spinner
       }
     })
 
@@ -92,6 +105,7 @@ export class DashboardComponent implements OnInit {
     
     const isAuth = true;
 
+    this.isLoading = true; // Show loading spinner
     this.api.delete(API_ENDPOINTS.TASK.DELETE(id),isAuth).subscribe({
       next: (response:any) => {
         console.log(response);
@@ -102,7 +116,11 @@ export class DashboardComponent implements OnInit {
         this.loadDashboardData(); // Reload tasks after update
       },
       error: (error) => {
+        this.isLoading = false;
         console.error(error);
+      },
+      complete: () => {
+        this.isLoading = false; // Hide loading spinner
       }
     })
 

@@ -1,16 +1,17 @@
 import { Component } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NavbarComponent } from '../../component/navbar/navbar.component';
-import { CommonModule } from '@angular/common';
+import { NavbarComponent } from '../../component/navbar/navbar/navbar.component';
+import { CommonModule, NgIf } from '@angular/common';
 import { ApiService } from '../../service/api.service'; 
 import { API_ENDPOINTS } from '../../service/api-endpoints';
 import { AuthService } from '../../service/auth.service';
 import Swal from 'sweetalert2';
+import { LoadingSpinnerComponent } from "../../component/navbar/loading-spinner/loading-spinner.component";
 @Component({
   selector: 'app-task-add',
   standalone: true,
   templateUrl: 'addTask.component.html',
-  imports: [NavbarComponent, ReactiveFormsModule, CommonModule],
+  imports: [NavbarComponent, ReactiveFormsModule, CommonModule, LoadingSpinnerComponent, NgIf],
 })
 export class TaskAddComponent {
   taskForm: FormGroup;
@@ -23,6 +24,7 @@ export class TaskAddComponent {
     });
   }
 
+  isLoading = false;
   onSubmit(): void {
     if (this.taskForm.valid) {
       //------token get
@@ -39,6 +41,7 @@ export class TaskAddComponent {
 
      //---------call api to add task
      const isAuth = true;
+      this.isLoading = true; // Show loading spinner
       this.api.post(API_ENDPOINTS.TASK.CREATE, taskData, isAuth).subscribe({
         next: (response: any) => {
                Swal.fire({
@@ -49,9 +52,13 @@ export class TaskAddComponent {
           this.taskForm.reset(); // Reset the form after successful submission
         },
         error: (error) => {
+          this.isLoading = false; // Hide loading spinner
           console.error('Error adding task:', error);
           // Handle error response
-        },
+        }, 
+        complete: () => {
+          this.isLoading = false; // Hide loading spinner
+        }
       })
     } else {
       this.taskForm.markAllAsTouched(); // show validation errors

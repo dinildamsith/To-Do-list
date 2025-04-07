@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {RouterLink, RouterLinkActive} from '@angular/router';
-
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -15,12 +15,15 @@ import {RouterLink, RouterLinkActive} from '@angular/router';
 
 export class NavbarComponent{
 
-  logout() {
-    // Clear user data from local storage or session storage
-    localStorage.removeItem('authToken');
-    sessionStorage.removeItem('authToken');
+  constructor(private router: Router) {}
 
-    // Optionally, you can handle more actions, like notifying the backend
+  logout() {
+    // Clear user data from local storage
+    localStorage.removeItem('token');
+  
+
+    // Navigate to login or default route
+    this.router.navigate(['/']);
   }
 
 }
