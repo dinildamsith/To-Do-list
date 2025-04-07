@@ -32,7 +32,7 @@ export class SignupComponent{
 
 
       // After navigation finishes
-      this.api.post(API_ENDPOINTS.AUTH.SIGNUP, this.userData).subscribe({
+      this.api.post(API_ENDPOINTS.AUTH.SIGNUP, this.userData, false).subscribe({
         next: (response) => {
           console.log(response);
           alert("Sign up successful!");

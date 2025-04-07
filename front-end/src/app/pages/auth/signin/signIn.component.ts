@@ -24,7 +24,7 @@ export class SignInComponent {
 
     console.log(this.signInData)
 
-    this.api.post(API_ENDPOINTS.AUTH.SIGNIN, this.signInData).subscribe({
+    this.api.post(API_ENDPOINTS.AUTH.SIGNIN, this.signInData, false).subscribe({
       next: (res:any) => {
         console.log('Login success', res);
         localStorage.setItem('token', res.data); // save token if needed

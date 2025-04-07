@@ -1,11 +1,14 @@
 // src/app/dashboard/dashboard.component.ts
 
 import {Component, NgModule, OnInit} from '@angular/core';
-import { TaskService } from '../../service/task.service'; // Adjust path if necessary
+import { TaskService } from '../../service/task.service'; 
 import { Task } from '../../service/mock-tasks';
 import {FormsModule} from '@angular/forms';
 import {CommonModule, NgClass, NgForOf, NgIf} from '@angular/common';
 import {NavbarComponent} from '../../component/navbar/navbar.component';
+import { ApiService } from '../../service/api.service'; 
+import { API_ENDPOINTS } from '../../service/api-endpoints';
+import { AuthService } from '../../service/auth.service';
 
 
 
@@ -34,12 +37,31 @@ export class DashboardComponent implements OnInit {
   taskForm: Task = { id: 0, title: '', description: '', status: 'pending' }; // for new or edit task
   editingTask: Task | null = null;
 
-  constructor(private taskService: TaskService) {}
+  constructor(private taskService: TaskService, private api: ApiService, private authService: AuthService) {}
 
   ngOnInit() {
-    this.tasks = this.taskService.getTasks();
-    console.log(this.tasks); // Check if tasks are being retrieved correctly
-    this.calculateTaskCounts();
+  
+
+    this.loadDashboardData(); // Load tasks from the API
+    // this.tasks = this.taskService.getTasks();
+    // console.log(localStorage.getItem("token"))
+    // this.calculateTaskCounts();
+  }
+
+  // load Dashboard data & all tasks
+  loadDashboardData() {
+      const decodeToken:any = this.authService.getDecodedToken()
+      const isAuth = true;
+      this.api.get(API_ENDPOINTS.TASK.GET_ALL(decodeToken.userid), isAuth).subscribe({
+        next: (response:any) => {
+          this.tasks = response.data;
+          console.log(this.tasks);
+          this.calculateTaskCounts();
+        },
+        error: (error) => {
+          console.error(error);
+        }
+      })
   }
 
 

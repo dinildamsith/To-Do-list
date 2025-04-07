@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 
 import java.security.Key;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 public class JwtServicesIMPL implements JwtServices {
@@ -17,8 +19,12 @@ public class JwtServicesIMPL implements JwtServices {
 
     // Generate JWT token
     @Override
-    public String generateToken(String username) {
+    public String generateToken(String username, Long id) {
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("userid", id);
+
         return Jwts.builder()
+                .setClaims(claims)
                 .setSubject(username)
                 .setIssuedAt(new java.util.Date(System.currentTimeMillis()))
                 .setExpiration(new java.util.Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10)) // 10 hours

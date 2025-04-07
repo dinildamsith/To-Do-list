@@ -5,6 +5,7 @@ import lk.dinil.back_end.dataConvert.Mapper;
 import lk.dinil.back_end.dto.LoginDto;
 import lk.dinil.back_end.dto.ResponseDto;
 import lk.dinil.back_end.dto.UserDto;
+import lk.dinil.back_end.entity.UserEntity;
 import lk.dinil.back_end.services.AuthenticationServices;
 import lk.dinil.back_end.services.JwtServices;
 import lombok.RequiredArgsConstructor;
@@ -35,14 +36,16 @@ public class AuthenticationServiceIMPL implements AuthenticationServices {
     @Override
     public ResponseEntity<?> signIn(LoginDto loginDto) {
         System.out.println(loginDto);
-        UserDetails userDetails = userRepo.findByUsername(loginDto.getUsername());
+        UserEntity userDetails = userRepo.findByUsername(loginDto.getUsername());
+
+        System.out.println(userDetails.getId());
 
 
         if (loginDto.getUsername().equals(userDetails.getUsername()) && loginDto.getPassword().equals(userDetails.getPassword())) {
             ResponseDto responseDto = new ResponseDto();
             responseDto.setResponseCode("200");
             responseDto.setResponseMessage("Login Successful");
-            responseDto.setData(jwtServices.generateToken(loginDto.getUsername()));
+            responseDto.setData(jwtServices.generateToken(loginDto.getUsername(), userDetails.getId()));
             return ResponseEntity.ok(responseDto);
         } else {
             ResponseDto responseDto = new ResponseDto();
