@@ -8,13 +8,7 @@ import { Task } from './mock-tasks'; // Assuming mock-tasks.ts is in the same di
 })
 export class TaskService {
 
-  private tasks: Task[] = [
-    { id: 1, title: 'Finish Angular Project', description: 'Complete the dashboard UI and backend connection.', status: 'pending' },
-    { id: 2, title: 'Write Documentation', description: 'Add README and usage instructions.', status: 'in-progress' },
-    { id: 3, title: 'Submit Final Report', description: 'Send to project manager for review.', status: 'completed' },
-    { id: 4, title: 'Fix Login Bug', description: 'Resolve token expiration issue.', status: 'pending' },
-    { id: 5, title: 'Design UI Mockups', description: 'For new landing page.', status: 'completed' },
-  ];
+  private tasks: Task[] = [];
 
   // Method to get all tasks
   getTasks() {

@@ -6,17 +6,21 @@
 
     <!-- Task Count Cards -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-      <div class="bg-white p-4 rounded-lg shadow">
+      <!-- <div class="bg-white p-4 rounded-lg shadow">
         <p class="text-gray-500">All Tasks</p>
         <h2 class="text-xl font-bold">{{ allCount }}</h2>
-      </div>
+      </div> -->
       <div class="bg-yellow-100 p-4 rounded-lg shadow">
-        <p class="text-gray-600">Pending</p>
-        <h2 class="text-xl font-bold">{{ pendingCount }}</h2>
+        <p class="text-gray-600">To Do</p>
+        <h2 class="text-xl font-bold">{{ toDoCount }}</h2>
+      </div>
+      <div class="bg-blue-00 p-4 rounded-lg shadow">
+        <p class="text-gray-600">In Progress</p>
+        <h2 class="text-xl font-bold">{{ inProgressCount }}</h2>
       </div>
       <div class="bg-green-100 p-4 rounded-lg shadow">
-        <p class="text-gray-600">Completed</p>
-        <h2 class="text-xl font-bold">{{ completedCount }}</h2>
+        <p class="text-gray-600">Done</p>
+        <h2 class="text-xl font-bold">{{ doneCount }}</h2>
       </div>
     </div>
 
@@ -33,9 +37,9 @@
         <h3 class="font-semibold text-lg">{{ task.title }}</h3>
         <p class="text-gray-500">{{ task.description }}</p>
         <span class="text-sm" [ngClass]="{
-      'text-yellow-600': task.status === 'pending',
-      'text-green-600': task.status === 'completed',
-      'text-blue-600': task.status === 'in-progress'
+      'text-yellow-600': task.status === 'TO_DO',
+      'text-green-600': task.status === 'DONE',
+      'text-blue-600': task.status === 'IN_PROGRESS'
     }">{{ task.status }}</span>
       </div>
       <div class="space-x-2">
@@ -49,7 +53,7 @@
     <div *ngIf="showForm" class="fixed inset-0 bg-black bg-opacity-40 flex justify-center items-center">
       <div class="bg-white p-6 rounded-lg w-full max-w-md">
         <h2 class="text-xl font-bold mb-4">{{ editingTask ? 'Edit Task' : 'New Task' }}</h2>
-        <form (ngSubmit)="saveTask()" class="space-y-3">
+        <form  class="space-y-3">
           <input [(ngModel)]="taskForm.title" name="title" placeholder="Task Title"
                  class="border border-gray-300 w-full px-4 py-2 rounded" required />
           <textarea [(ngModel)]="taskForm.description" name="description" placeholder="Description"

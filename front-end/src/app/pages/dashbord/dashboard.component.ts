@@ -30,25 +30,21 @@ export class DashboardComponent implements OnInit {
 
   tasks: Task[] = [];
   allCount: number = 0;
-  pendingCount: number = 0;
-  completedCount: number = 0;
+  toDoCount: number = 0;
+  inProgressCount: number = 0;
+  doneCount: number = 0;
   searchTerm: string = '';
   showForm: boolean = false;
-  taskForm: Task = { id: 0, title: '', description: '', status: 'pending' }; // for new or edit task
+  taskForm: Task = { id: 0, title: '', description: '', status: 'TO_DO' }; // for new or edit task
   editingTask: Task | null = null;
 
-  constructor(private taskService: TaskService, private api: ApiService, private authService: AuthService) {}
+  constructor(private api: ApiService, private authService: AuthService) {}
 
   ngOnInit() {
-  
-
     this.loadDashboardData(); // Load tasks from the API
-    // this.tasks = this.taskService.getTasks();
-    // console.log(localStorage.getItem("token"))
-    // this.calculateTaskCounts();
   }
 
-  // load Dashboard data & all tasks
+  // load Dashboard data & all tasks api
   loadDashboardData() {
       const decodeToken:any = this.authService.getDecodedToken()
       const isAuth = true;
@@ -59,12 +55,15 @@ export class DashboardComponent implements OnInit {
           this.calculateTaskCounts();
         },
         error: (error) => {
-          console.error(error);
+          console.error(error.error.responseCode);
+          if (error.error.responseCode === '404') {
+            this.tasks = []; // Clear tasks if error occurs
+          }
         }
       })
   }
 
-  // update task
+  // update task api call
   updateTask() {
     console.log(this.taskForm);
 
@@ -83,6 +82,25 @@ export class DashboardComponent implements OnInit {
 
   }
 
+  
+  // Delete a task api call
+  deleteTask(id: number) {
+    
+    const isAuth = true;
+
+    this.api.delete(API_ENDPOINTS.TASK.DELETE(id),isAuth).subscribe({
+      next: (response:any) => {
+        console.log(response);
+        this.loadDashboardData(); // Reload tasks after update
+      },
+      error: (error) => {
+        console.error(error);
+      }
+    })
+
+
+  }
+
   // Filter tasks based on search term
   filteredTasks() {
     console.log(this.searchTerm); // Check the search term
@@ -93,30 +111,12 @@ export class DashboardComponent implements OnInit {
   }
 
 
-  // Open form for new task
-  openNewTask() {
-    this.showForm = true;
-    this.taskForm = { id: 0, title: '', description: '', status: 'pending' };
-    this.editingTask = null;
-  }
 
-  // Edit a task
+  // Edit a task button click after pop up window open and data set
   editTask(task: Task) {
     this.showForm = true;
     this.taskForm = { ...task }; // copy the task data
     this.editingTask = task;
-  }
-
-  // Save new or edited task
-  saveTask() {
-    if (this.editingTask) {
-      this.taskService.updateTask(this.taskForm);
-    } else {
-      const newTask = { ...this.taskForm, id: Date.now() }; // Use timestamp for unique id
-      this.taskService.addTask(newTask);
-    }
-    this.closeForm();
-    this.calculateTaskCounts();  // Ensure the counts are recalculated
   }
 
 
@@ -126,17 +126,12 @@ export class DashboardComponent implements OnInit {
     this.editingTask = null;
   }
 
-  // Delete a task
-  deleteTask(id: number) {
-    this.taskService.deleteTask(id);
-    this.calculateTaskCounts();
-  }
-
   // Calculate task counts based on status
   calculateTaskCounts() {
     this.allCount = this.tasks.length;
-    this.pendingCount = this.tasks.filter(task => task.status === 'pending').length;
-    this.completedCount = this.tasks.filter(task => task.status === 'completed').length;
+    this.toDoCount = this.tasks.filter(task => task.status === 'TO_DO').length;
+    this.inProgressCount = this.tasks.filter(task => task.status === 'IN_PROGRESS').length;
+    this.doneCount = this.tasks.filter(task => task.status === 'DONE').length;
   }
 
   protected readonly navigator = navigator;
