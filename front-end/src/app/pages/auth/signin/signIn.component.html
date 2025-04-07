@@ -5,10 +5,13 @@
 
     <form>
       <div class="mb-4">
-        <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+        <label class="block text-sm font-medium text-gray-700 mb-1">User Name</label>
         <input
-          type="email"
-          placeholder="you@example.com"
+          [(ngModel)]="signInData.username"
+          name="username"
+          required
+          type="username"
+          placeholder="johan123"
           class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-400 focus:outline-none"
         />
       </div>
@@ -16,6 +19,8 @@
       <div class="mb-4">
         <label class="block text-sm font-medium text-gray-700 mb-1">Password</label>
         <input
+          [(ngModel)]="signInData.password"
+          name="password"
           type="password"
           placeholder="Enter your password"
           class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-400 focus:outline-none"
@@ -31,7 +36,8 @@
       </div>
 
       <button
-        type="submit"
+        type="button"
+        (click)="onSignIn()"
         class="w-full bg-indigo-600 text-white font-semibold py-2 rounded-xl hover:bg-indigo-700 transition"
       >
         Sign In
