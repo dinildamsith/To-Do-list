@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicLong;
@@ -30,6 +31,7 @@ public class TaskServicesIMPL implements TaskServices {
         taskDto.setId(System.currentTimeMillis());
 
         if (taskDto.getId() != null && taskDto.getTitle() != null && taskDto.getDescription() != null) {
+            taskDto.setCreatedAt(LocalDateTime.now());
             TaskEntity save = taskRepo.save(mapper.convertToTaskDto(taskDto)); // save task
 
             ResponseDto responseDto = new ResponseDto();
