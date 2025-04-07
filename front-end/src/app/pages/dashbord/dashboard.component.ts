@@ -134,5 +134,15 @@ export class DashboardComponent implements OnInit {
     this.doneCount = this.tasks.filter(task => task.status === 'DONE').length;
   }
 
+  //
+  copyToClipboard(text: any) {
+    navigator.clipboard.writeText(text).then(() => {
+      alert('Task ID copied to clipboard!');
+    }).catch(err => {
+      console.error('Could not copy text: ', err);
+    });
+  }
+  
+
   protected readonly navigator = navigator;
 }
