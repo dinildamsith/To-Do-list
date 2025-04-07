@@ -25,7 +25,9 @@ export class TaskAddComponent {
 
   onSubmit(): void {
     if (this.taskForm.valid) {
+      //------token get
       const decodeToken:any = this.authService.getDecodedToken()
+      // ------ task data collect
       const taskData = {
         userId: decodeToken.userid,
         title: this.taskForm.value.title,
@@ -35,8 +37,9 @@ export class TaskAddComponent {
         
       }
 
-      console.log(taskData);
-      this.api.post(API_ENDPOINTS.TASK.CREATE, taskData, true).subscribe({
+     //---------call api to add task
+     const isAuth = true;
+      this.api.post(API_ENDPOINTS.TASK.CREATE, taskData, isAuth).subscribe({
         next: (response: any) => {
           console.log('Task added successfully:', response);
           this.taskForm.reset(); // Reset the form after successful submission
