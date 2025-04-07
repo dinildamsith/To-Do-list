@@ -3,7 +3,7 @@ import { ApiService } from '../../../service/api.service';
 import { FormsModule, NgModel } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { API_ENDPOINTS } from '../../../service/api-endpoints';
-
+import { Router, NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -20,7 +20,7 @@ export class SignupComponent{
       confirmPassword: ''
   }
 
-  constructor(private api: ApiService) {}
+  constructor(private api: ApiService, private router: Router) {}
 
 
   // Sign up handel
@@ -30,17 +30,19 @@ export class SignupComponent{
       return;
     }
 
-    this.api.post(API_ENDPOINTS.AUTH.SIGNUP, this.userData).subscribe({
-      next: (response) => {
-        console.log(response);
-        alert("Sign up successful!");
-      },
-      error: (error) => {
-        console.error(error);
-        alert("Sign up failed. Please try again.");
-      }
-    })
-  
+
+      // After navigation finishes
+      this.api.post(API_ENDPOINTS.AUTH.SIGNUP, this.userData).subscribe({
+        next: (response) => {
+          console.log(response);
+          alert("Sign up successful!");
+          this.router.navigate(['/'])
+        },
+        error: (error) => {
+          console.error(error);
+          alert("Sign up failed. Please try again.");
+        }
+      });
   }
 
 }
