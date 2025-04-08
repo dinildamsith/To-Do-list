@@ -33,23 +33,15 @@
     </div>
 
     <!-- Task List -->
-    <div *ngFor="let task of filteredTasks()" class="p-4 flex justify-between items-center">
-      <div>
-        <h3 class="font-semibold text-lg">{{ task.title }}</h3>
-        <p class="text-gray-500">{{ task.description }}</p>
-        <span class="text-sm" [ngClass]="{
-      'text-yellow-600': task.status === 'TO_DO',
-      'text-green-600': task.status === 'DONE',
-      'text-blue-600': task.status === 'IN_PROGRESS'
-    }">{{ task.status }}</span>
-      </div>
-      <div class="space-x-2">
-        <button (click)="viewDetails(task.id)" class="text-gray-600 hover:text-indigo-600 font-medium">
-          👁️ View
-        </button>
-        <button (click)="editTask(task)" class="text-blue-500 font-medium">Edit</button>
-        <button (click)="deleteTask(task.id)" class="text-red-500 font-medium">Delete</button>
-      </div>
+    <div>
+      <app-task-card
+      *ngFor="let task of filteredTasks()"
+      [task]="task"
+      (view)="viewDetails($event)"
+      (edit)="editTask($event)"
+      (delete)="deleteTask($event)"
+    ></app-task-card>
+    
     </div>
 
 

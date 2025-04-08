@@ -12,6 +12,8 @@ import { AuthService } from '../../service/auth.service';
 import { LoadingSpinnerComponent } from '../../component/navbar/loading-spinner/loading-spinner.component';
 import Swal from 'sweetalert2';
 import { Router} from '@angular/router';
+import { TaskCardComponent } from '../../component/navbar/task-card/task-card.component';
+
 
 @Component({
   selector: 'app-dashboard',
@@ -19,11 +21,11 @@ import { Router} from '@angular/router';
   templateUrl: 'dashboard.component.html',
   imports: [
     FormsModule,
-    NgClass,
     NgForOf,
     NgIf,
     NavbarComponent,
-    LoadingSpinnerComponent
+    LoadingSpinnerComponent,
+    TaskCardComponent
   ]
 })
 

@@ -30,7 +30,6 @@ export class TaskDetailsComponent implements OnInit{
 
 
   ngOnInit(): void {
-    console.log('Component Loaded ✅');
     this.loadTasks(); // Call your logic here
   }
 
