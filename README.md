@@ -15,6 +15,13 @@ A full-stack web application to manage tasks, built with **Angular** (frontend),
 
 ---
 
+## 🚀 Postman Collection
+
+You can test the API using the Postman Collection below:
+
+👉 [Click here to view the Postman Collection](https://documenter.getpostman.com/view/30946423/2sB2cVf2nF)
+
+
 ## 🚀 How to Run the Project
 
 ### 📌 1. Run Backend (Spring Boot)
