@@ -1,0 +1,36 @@
+version: '3'
+
+services:
+  db:
+    image: mysql:8.4.4
+    container_name: mysql-db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_DATABASE: task-DB
+    ports:
+      - "3306:3306"
+
+  backend:
+    build:
+      context: ./back_end
+      dockerfile: Dockerfile
+    container_name: spring-backend
+    depends_on:
+      - db
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/task-DB?createDatabaseIfNotExist=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: 1234
+
+  frontend:
+    build:
+      context: ./front-end
+      dockerfile: Dockerfile
+    container_name: angular-frontend
+    ports:
+      - "4200:80"
+    depends_on:
+      - backend
