@@ -11,7 +11,7 @@ import { API_ENDPOINTS } from '../../service/api-endpoints';
 import { AuthService } from '../../service/auth.service';
 import { LoadingSpinnerComponent } from '../../component/navbar/loading-spinner/loading-spinner.component';
 import Swal from 'sweetalert2';
-
+import { Router} from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -41,7 +41,7 @@ export class DashboardComponent implements OnInit {
   taskForm: Task = { id: 0, title: '', description: '', status: 'TO_DO' }; // for new or edit task
   editingTask: Task | null = null;
 
-  constructor(private api: ApiService, private authService: AuthService) {}
+  constructor(private api: ApiService, private authService: AuthService, private router: Router) {}
 
   ngOnInit() {
     this.loadDashboardData(); // Load tasks from the API
@@ -167,6 +167,12 @@ export class DashboardComponent implements OnInit {
     }).catch(err => {
       console.error('Could not copy text: ', err);
     });
+  }
+
+  //
+  viewDetails(taskId: any) {
+    this.router.navigate(['task-summary/'+taskId])
+    console.log(taskId)
   }
   
 

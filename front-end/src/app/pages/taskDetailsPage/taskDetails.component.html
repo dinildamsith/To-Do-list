@@ -1,0 +1,35 @@
+<!-- Show Task Details if a task is selected -->
+<app-navbar></app-navbar>
+<app-loading-spinner *ngIf="isLoading"></app-loading-spinner>
+
+<div *ngIf="selectedTask" class="bg-white rounded-xl shadow-lg p-6 w-full max-w-3xl mx-auto my-8 border border-gray-200">
+  <!-- Header -->
+  <div class="flex justify-between items-center mb-4">
+    <h2 class="text-2xl font-bold text-gray-800">📝 Task Details</h2>
+    <!-- <button 
+      (click)="selectedTask = null" 
+      class="text-gray-500 text-xl hover:text-red-500 transition duration-200"
+    >
+      &times;
+    </button> -->
+  </div>
+
+  <!-- Task Details -->
+  <div class="space-y-3 text-gray-700">
+    <p><strong>📌 Title:</strong> {{ selectedTask.title }}</p>
+    <p><strong>🧾 Description:</strong> {{ selectedTask.description }}</p>
+    <p>
+      <strong>📊 Status:</strong> 
+      <span 
+        [ngClass]="{
+          'text-yellow-600 font-semibold': selectedTask.status === 'TO_DO',
+          'text-green-600 font-semibold': selectedTask.status === 'DONE',
+          'text-blue-600 font-semibold': selectedTask.status === 'IN_PROGRESS'
+        }"
+      >
+        {{ selectedTask.status }}
+      </span>
+    </p>
+    <p><strong>⏳ Create Time:</strong> {{ selectedTask.createdAt }}</p>
+  </div>
+</div>

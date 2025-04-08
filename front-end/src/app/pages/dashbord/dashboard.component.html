@@ -44,6 +44,9 @@
     }">{{ task.status }}</span>
       </div>
       <div class="space-x-2">
+        <button (click)="viewDetails(task.id)" class="text-gray-600 hover:text-indigo-600 font-medium">
+          👁️ View
+        </button>
         <button (click)="editTask(task)" class="text-blue-500 font-medium">Edit</button>
         <button (click)="deleteTask(task.id)" class="text-red-500 font-medium">Delete</button>
       </div>
