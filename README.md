@@ -130,7 +130,12 @@ docker-compose up --build
 
 ---
 
-## 📸 Screenshots 
+## 📸 Screenshots
+![Screenshot 2025-04-08 102946](https://github.com/user-attachments/assets/aa6a3800-1739-44a7-9307-d355d600a565)
+![Screenshot 2025-04-08 103012](https://github.com/user-attachments/assets/fe41f556-cbd6-4565-8a13-e92e1b1c0196)
+![Screenshot 2025-04-08 103439](https://github.com/user-attachments/assets/b04b3164-2b10-4ebd-bb46-2b33d29a6e80)
+![Screenshot 2025-04-08 103503](https://github.com/user-attachments/assets/dcc4c3d7-d7f9-4d2d-b8fb-401fa27238ef)
+![Screenshot 2025-04-08 103534](https://github.com/user-attachments/assets/86c58833-bf64-430f-a8e9-79d2a37b650a)
 
 
 
