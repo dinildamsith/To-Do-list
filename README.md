@@ -143,6 +143,7 @@ docker-compose up --build
 ![Screenshot 2025-04-08 103439](https://github.com/user-attachments/assets/b04b3164-2b10-4ebd-bb46-2b33d29a6e80)
 ![Screenshot 2025-04-08 103503](https://github.com/user-attachments/assets/dcc4c3d7-d7f9-4d2d-b8fb-401fa27238ef)
 ![Screenshot 2025-04-08 103534](https://github.com/user-attachments/assets/86c58833-bf64-430f-a8e9-79d2a37b650a)
+![Screenshot 2025-04-08 200706](https://github.com/user-attachments/assets/7bdb5382-1f0d-4702-97a0-40885d133c3a)
 
 
 
