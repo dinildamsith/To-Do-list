@@ -5,6 +5,7 @@ import { Router} from '@angular/router';
 import { API_ENDPOINTS } from '../../../service/api-endpoints';
 import { LoadingSpinnerComponent } from '../../../component/navbar/loading-spinner/loading-spinner.component';
 import { NgIf } from '@angular/common';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-signin',
@@ -30,6 +31,10 @@ export class SignInComponent {
     this.isLoading = true; // Show spinner
     this.api.post(API_ENDPOINTS.AUTH.SIGNIN, this.signInData, false).subscribe({
       next: (res:any) => {
+            Swal.fire({
+                    icon: 'success',
+                    title: "Sign In Success."
+                  });
         console.log('Login success', res);
         localStorage.setItem('token', res.data); // save token if needed
         this.router.navigate(['/dash-bord']);
@@ -37,7 +42,10 @@ export class SignInComponent {
       error: (err) => {
         this.isLoading = false;
         console.error('Login failed', err);
-        alert('Login failed. Please check your email or password.');
+            Swal.fire({
+                            icon: 'error',
+                            title: err.error.responseMessage
+                          });
       },
       complete: () => {
         this.isLoading = false; // Hide spinner

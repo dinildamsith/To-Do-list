@@ -5,6 +5,7 @@ import { CommonModule, NgIf } from '@angular/common';
 import { API_ENDPOINTS } from '../../../service/api-endpoints';
 import { Router, NavigationEnd } from '@angular/router';
 import { LoadingSpinnerComponent } from '../../../component/navbar/loading-spinner/loading-spinner.component';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-signup',
   standalone: true,
@@ -36,13 +37,19 @@ export class SignupComponent{
       this.api.post(API_ENDPOINTS.AUTH.SIGNUP, this.userData, false).subscribe({
         next: (response) => {
           console.log(response);
-          alert("Sign up successful!");
+          Swal.fire({
+            icon: 'success',
+            title: "Sign Up Success."
+          });
           this.router.navigate(['/'])
         },
         error: (error) => {
           this.isLoading = false;
-          console.error(error);
-          alert("Sign up failed. Please try again.");
+                Swal.fire({
+                    icon: 'error',
+                    title: error.error.responseMessage
+                  });
+          console.error(error.error.responseMessage);
         },
         complete: () => {
           this.isLoading = false; // Hide loading spinner

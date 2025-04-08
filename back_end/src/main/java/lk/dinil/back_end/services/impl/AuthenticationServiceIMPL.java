@@ -57,11 +57,22 @@ public class AuthenticationServiceIMPL implements AuthenticationServices {
 
     @Override
     public ResponseEntity<?> signUp(UserDto userDto) {
-        userDto.setId(System.currentTimeMillis());
-        userRepo.save(mapper.convertToUserEntity(userDto));
-        ResponseDto responseDto = new ResponseDto();
-        responseDto.setResponseCode("200");
-        responseDto.setResponseMessage("User Created Successfully");
-        return ResponseEntity.ok(responseDto);
+
+        UserEntity user = userRepo.findByUsername(userDto.getUsername());
+
+        if (user != null) {
+            ResponseDto responseDto = new ResponseDto();
+            responseDto.setResponseCode("400");
+            responseDto.setResponseMessage("This User Name Have Already in User System");
+            return ResponseEntity.status(400).body(responseDto);
+        } else {
+            userDto.setId(System.currentTimeMillis());
+            userRepo.save(mapper.convertToUserEntity(userDto));
+            ResponseDto responseDto = new ResponseDto();
+            responseDto.setResponseCode("200");
+            responseDto.setResponseMessage("User Created Successfully");
+            return ResponseEntity.ok(responseDto);
+        }
+
     }
 }
