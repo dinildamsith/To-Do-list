@@ -29,8 +29,9 @@ export class TaskDetailsComponent implements OnInit{
   constructor(private api: ApiService, private authService: AuthService, private route: ActivatedRoute) {}
 
 
+  // ---------------- COMPONENT LOAD TIME loadTask() call
   ngOnInit(): void {
-    this.loadTasks(); // Call your logic here
+    this.loadTasks(); 
   }
 
   taskId: any = null

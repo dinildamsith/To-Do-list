@@ -24,7 +24,7 @@ export class SignupComponent{
   constructor(private api: ApiService, private router: Router) {}
 
   isLoading = false;
-  // Sign up handel
+  //-------------------------------- SIGN UP HANDEL
   onSignUp() {
     if (this.userData.password !== this.userData.confirmPassword) {
       alert("Passwords do not match!");

@@ -23,7 +23,7 @@ export class SignInComponent {
   constructor(private api: ApiService, private router: Router) {}
 
   isLoading = false;
-  // Sign in handle
+  //------------------------ SIGN IN HANDEL
   onSignIn() {
 
     console.log(this.signInData)
