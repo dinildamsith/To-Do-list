@@ -1,5 +1,6 @@
 package lk.dinil.back_end.controllers;
 
+import jakarta.validation.Valid;
 import lk.dinil.back_end.dto.LoginDto;
 import lk.dinil.back_end.dto.UserDto;
 import lk.dinil.back_end.services.AuthenticationServices;
@@ -25,12 +26,12 @@ public class AuthenticationController {
 
 
     @PostMapping("/sign-in")
-    public ResponseEntity<?> signIn(@RequestBody LoginDto loginDto){
+    public ResponseEntity<?> signIn(@RequestBody @Valid LoginDto loginDto){
       return authenticationServices.signIn(loginDto);
     }
 
     @PostMapping("/sign-up")
-    public ResponseEntity<?> signUp(@RequestBody UserDto userDto){
+    public ResponseEntity<?> signUp(@RequestBody @Valid UserDto userDto){
         return authenticationServices.signUp(userDto);
     }
 

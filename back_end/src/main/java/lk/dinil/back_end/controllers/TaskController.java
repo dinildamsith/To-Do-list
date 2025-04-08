@@ -1,5 +1,6 @@
 package lk.dinil.back_end.controllers;
 
+import jakarta.validation.Valid;
 import lk.dinil.back_end.dto.ResponseDto;
 import lk.dinil.back_end.dto.TaskDto;
 import lk.dinil.back_end.services.TaskServices;
@@ -17,13 +18,13 @@ public class TaskController {
 
     // add task
     @PostMapping("/add")
-    public ResponseEntity<?> addTask(@RequestBody TaskDto taskDto) {
+    public ResponseEntity<?> addTask(@RequestBody @Valid TaskDto taskDto) {
         return taskServices.createTask(taskDto);
     }
 
     // update task
     @PutMapping("/update/{taskId}")
-    public ResponseEntity<?> updateTask(@PathVariable Long taskId, @RequestBody TaskDto taskDto) {
+    public ResponseEntity<?> updateTask(@PathVariable @Valid Long taskId, @RequestBody TaskDto taskDto) {
         return taskServices.updateTask(taskId, taskDto);
     }
 
