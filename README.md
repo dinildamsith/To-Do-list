@@ -1,7 +1,7 @@
 
 # 📝 Task Manager App
 
-A full-stack web application to manage tasks. Built with **Angular** (frontend), **Spring Boot** (backend), and **MySQL** database.
+A full-stack web application to manage tasks, built with **Angular** (frontend), **Spring Boot** (backend), and **MySQL** database.
 
 ---
 
@@ -10,7 +10,7 @@ A full-stack web application to manage tasks. Built with **Angular** (frontend),
 ```
 /backend       --> Spring Boot App (Java)
 /frontend      --> Angular App (TypeScript)
-/docker-compose.yml (optional)
+/docker-compose.yml
 ```
 
 ---
@@ -23,21 +23,29 @@ A full-stack web application to manage tasks. Built with **Angular** (frontend),
 - Java 17+
 - Maven
 
+#### Clone the Project:
+
+```bash
+git clone https://github.com/dinildamsith/To-Do-list
+```
+
 #### 📦 Build & Run:
+
+To run the backend:
 
 ```bash
 cd backend
 ./mvnw spring-boot:run
 ```
 
-Or build jar and run:
+Or build the JAR and run:
 
 ```bash
 ./mvnw clean package
-java -jar target/backend-0.0.1-SNAPSHOT.jar
+java -jar target/back-end-0.0.1-SNAPSHOT.jar
 ```
 
-> Backend runs by default at `http://localhost:8080/to-do-list`
+> Backend runs by default at `http://localhost:8080/to-do-list/api/v1/test`
 
 ---
 
@@ -66,16 +74,16 @@ Uses **MySQL** database. The backend will auto-create the DB on first run.
 ### 📦 MySQL Configuration (in `application.properties`):
 
 ```properties
-spring.datasource.url=jdbc:mysql://localhost:3306/task-DB?createDatabaseIfNotExist=true
-spring.datasource.username=root
-spring.datasource.password=1234
+spring.datasource.url=db_url
+spring.datasource.username=your_password
+spring.datasource.password=your_password
 ```
 
 > Ensure MySQL is running locally with username `root` and password `1234`. You can adjust it as needed.
 
 ---
 
-## 🔐 JWT Authentication (Optional Bonus)
+## 🔐 JWT Authentication 
 
 If JWT is implemented:
 
@@ -87,8 +95,8 @@ If JWT is implemented:
 
 ### 🧾 API Auth Flow
 
-- `POST /auth/register` – Register a new user
-- `POST /auth/login` – Login, returns JWT token
+- `POST /auth/sign-up` – Register a new user
+- `POST /auth/sign-in` – Login, returns JWT token
 - All protected APIs require header:  
   `Authorization: Bearer <your-token>`
 
@@ -101,7 +109,7 @@ If JWT is implemented:
 
 ---
 
-## 🐳 Docker Setup (Optional)
+## 🐳 Docker Setup 
 
 You can run the entire app with Docker using `docker-compose`.
 
@@ -122,9 +130,9 @@ docker-compose up --build
 
 ---
 
-## 📸 Screenshots (Optional)
+## 📸 Screenshots 
 
-Add any screenshots/gifs showing UI, features, or Docker running.
+
 
 ---
 
